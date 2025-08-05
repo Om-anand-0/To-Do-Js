@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1 id="title">Login</h1>
+    <hr>
+
+    <div id="login_section">
+        <form id="login_form">
+            <input type="email" id="email_input" placeholder="xyz@email.com" name="Email" required />
+            <input type="password" id="password_input" name="password" required />
+            <button type="submit"> Login</button>
+            
+        </form>
+    </div>
+
+    <div id="todo_section" style="display: none;">
+    <form id="task_form">
+        <input type="text" id="task_input" placeholder=" Add a Task" name="Task" required />
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul id="task_container"></ul>
+
+    </div>
+
+
+    <div id="custom_alert" class="hidden">
+        <p>Task already exists!</p>
+        <button id="dismiss_alert">OK</button>
+    </div>
+</body>
+</html>
