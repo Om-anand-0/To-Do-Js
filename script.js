@@ -9,6 +9,9 @@ const heading = document.getElementById('title');
 const dummy_mail = "admin@email.com";
 const dummy_pass = "123";
 
+let undoTimeout;
+let lastDeletedTask = null;
+
 document.addEventListener('DOMContentLoaded', loadTask);
 
 form.addEventListener('submit', function (e) {
@@ -69,8 +72,18 @@ function addTask(taskText) {
 
     deleteBtn.addEventListener('click', () => {
         li.classList.add("fade-out");
-        setTimeout(() => li.remove(), 300);
-        deleteTask(taskText);
+        lastDeletedTask = taskText
+
+        setTimeout(() =>{ 
+            li.remove();
+            deleteTask(taskText);
+            showUndoAlert("Task deleted. Undo?");
+        }, 300);
+
+        clearTimeout(undoTimeout);
+        undoTimeout = setTimeout(() => {
+            document.getElementById("undo_alert").classList.add("hidden");
+        }, 5000);
     });
 
     li.appendChild(checkbox);
@@ -103,5 +116,21 @@ function showCustomAlert(message) {
 
     document.getElementById("dismiss_alert").onclick = () => {
         alertBox.classList.add("hidden");
+    };
+}
+
+function showUndoAlert(message){
+    const alertBox = document.getElementById("undo_alert");
+    alertBox.querySelector("p").textContent = message;
+    alertBox.classList.remove("hidden");
+
+    document.getElementById("undo_btn").onclick = () => {
+        if (lastDeletedTask) {
+            addTask(lastDeletedTask);
+            saveTask(lastDeletedTask);
+            lastDeletedTask = null;
+        }
+        alertBox.classList.add("hidden");
+        clearTimeout(undoTimeout);
     };
 }

@@ -166,3 +166,37 @@ li button:hover {
 #dismiss_alert:hover {
   background-color: #922d2d;
 }
+
+#undo_alert {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 999;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+#undo_alert.hidden {
+  display: none;
+}
+
+#undo_btn {
+  background-color: #856404;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#undo_btn:hover {
+  background-color: #6c5003;
+}
