@@ -66,6 +66,37 @@ function addTask(taskText) {
             label.classList.remove('completed');
         }
     });
+    
+    label.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = label.textContent;
+        input.className = 'edit-input';
+
+        label.replaceWith(input);
+        input.focus();
+
+        input.addEventListener('blur', () => {
+            const updatedText = input.value.trim() || taskText;
+
+            const newLabel = document.createElement('label');
+            newLabel.textContent = updatedText;
+
+            newLabel.addEventListener('click', () => {
+                label.click(); // Reuse same logic
+            });
+
+            input.replaceWith(newLabel);
+
+            updateTask(taskText, updatedText);
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                input.blur(); // Triggers blur to save
+            }
+        });
+    });
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
@@ -107,6 +138,14 @@ function deleteTask(taskText) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.filter(task => task !== taskText);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+function updateTask(oldText, newText) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const index = tasks.indexOf(oldText);
+    if (index !== -1) {
+        tasks[index] = newText;
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
 }
 
 function showCustomAlert(message) {

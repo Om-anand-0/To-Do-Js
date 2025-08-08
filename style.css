@@ -131,6 +131,13 @@ li button:hover {
   transform: translateX(30px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.edit-input {
+    font-size: 16px;
+    padding: 4px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 #custom_alert {
   position: fixed;
